@@ -1,7 +1,6 @@
 # Use an official Node runtime as a parent image
 FROM node:21
 
-# Install dependencies for running a headless Chrome and VNC
 RUN apt-get update && apt-get install -y \
     xvfb \
     x11vnc \
@@ -11,17 +10,15 @@ RUN apt-get update && apt-get install -y \
     vim \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /usr/src/app
 
-# Copy package.json and install dependencies
-COPY package.json ./
+COPY instance/package.json ./
+COPY instance/main.js ./
+
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+COPY app/build build
 
-# Expose VNC port to the host
 EXPOSE 5900
 
 # Command to run VNC server and your app
