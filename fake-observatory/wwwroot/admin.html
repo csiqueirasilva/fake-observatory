@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.11/signalr.min.js"></script>
+</head>
+<body>
+    <h1>Fake Telescope Connection Status: <span id="status">Unknown</span></h1>
+    
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/ws/common-device")
+            .build();
+
+        connection.on("SetConnectedResponse", function (props) {
+            document.getElementById("status").textContent = props.Value ? "Connected" : "Disconnected";
+        });
+
+        connection
+            .start()
+            .then(() => {
+                connection
+                    .invoke("SetConnected", { ClientID: 1, ClientTransactionID: 1, Connected: true, deviceType: "telescope", deviceId: 1 })
+                    .catch(function (err) {
+                        return console.error(err.toString());
+                    });
+            })
+            .catch(err => console.error(err.toString()));
+    </script>
+</body>
+</html>

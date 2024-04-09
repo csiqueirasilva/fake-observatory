@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  fake-telescope:
+    container_name: fake-telescope
+    build:
+      context: ./fake-telescope
+      dockerfile: Dockerfile
+    ports:
+      - "5901:5900"
+    environment:
+      DISPLAY: :99
+
+  fake-observatory:
+    container_name: fake-observatory
+    build:
+      context: ./fake-observatory
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000" 
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Release
+      - ASPNETCORE_URLS=http://+:5000
