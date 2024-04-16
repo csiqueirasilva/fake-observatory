@@ -1,12 +1,13 @@
+import useGenericContext from "../context/useGenericContext";
 import CelestialBody from "./CelestialBody";
-import { Body } from "astronomy-engine";
 
-// Component to add axes helper
 const CelestialBodies = () => {
+    const { objectList } = useGenericContext();
     return (
         <>
-            <CelestialBody body={Body.Sun} />
-            <CelestialBody body={Body.Moon} />
+            {
+                objectList.map((b, k) => <CelestialBody body={b} key={k} />)
+            }
         </>
     );
 };

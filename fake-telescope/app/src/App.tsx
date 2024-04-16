@@ -1,15 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import SimpleBox from './rendering/SimpleBox';
 import CelestialBodiesRendering from './rendering/CelestialBodiesRendering';
+import { Celestron102Provider } from './context/Celestron102/Celestron102Context';
+import { Canvas } from '@react-three/fiber';
 
 function App() {
   return (
     <div className="App">
-      <CelestialBodiesRendering />
+      <Canvas frameloop="demand" camera={{ position: [-2, 2, 5] }}>
+        <Celestron102Provider>
+          <CelestialBodiesRendering />
+        </Celestron102Provider>
+      </Canvas>
     </div>
   );
+
 }
 
 export default App;

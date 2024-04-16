@@ -7,7 +7,7 @@ const Axes = () => {
     const { scene } = useThree();
     
     useEffect(() => {
-      const axesHelper = new AxesHelper(5);
+      const axesHelper = new AxesHelper(5000);
       scene.add(axesHelper);
       return () => { 
         scene.remove(axesHelper);
