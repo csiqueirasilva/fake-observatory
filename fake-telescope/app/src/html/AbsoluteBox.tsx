@@ -8,14 +8,15 @@ interface Props {
     left?: number;
     bottom?: number;
     children: ReactElement|ReactElement[];
+    zIndex?: number;
 }
 
-function AbsoluteBox (props : Props) {
+function AbsoluteBox ({ zIndex = 20000000, ...props } : Props) {
     return (
         <Html>
             {
                 createPortal(
-                    <div style={{ position: 'absolute', top: props.top, right: props.right, left: props.left, bottom: props.bottom, zIndex: 100 }}>
+                    <div style={{ position: 'absolute', top: props.top, right: props.right, left: props.left, bottom: props.bottom, zIndex }}>
                         { props.children }
                     </div>, document.body
                 )
